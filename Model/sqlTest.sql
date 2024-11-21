@@ -1,42 +1,91 @@
--- CREATE TABLE Actors (firstname TEXT, lastname TEXT, moviesActedIn INT);
--- INSERT INTO Actors (firstname, lastname, moviesActedIn) VALUES ("Alex", "G", 4);
--- Create the database
--- CREATE DATABASE IF NOT EXISTS movieDB;
--- USE movieDB;
-
--- Drop tables if they exist to avoid conflicts
-DROP TABLE IF EXISTS Movies;
-DROP TABLE IF EXISTS Producers;
-DROP TABLE IF EXISTS Actors;
-DROP TABLE IF EXISTS Actresses;
-DROP TABLE IF EXISTS Persons;
-DROP TABLE IF EXISTS Writers;
-DROP TABLE IF EXISTS Directors;
-
--- Create Producers Table
-CREATE TABLE Producers (
-    producerID INT PRIMARY KEY AUTO_INCREMENT,
-    position VARCHAR(50)
+CREATE TABLE Person (
+    personID INTEGER PRIMARY KEY AUTOINCREMENT,
+    lastName TEXT NOT NULL,
+    firstName TEXT NOT NULL,
+    pay REAL
 );
 
--- Create Movies Table
-CREATE TABLE Movies (
-    movieID INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
+CREATE TABLE Movie (
+    movieID INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
     releaseDate DATE,
     synopsis TEXT,
-    rating VARCHAR(10),
-    length INT,
-    category VARCHAR(50),
-    producerID INT,
-    FOREIGN KEY (producerID) REFERENCES Producers(producerID)
+    rating REAL,
+    length INTEGER, 
+    category TEXT
 );
 
-Create Actors Table
-    CREATE TABLE Actors (
-    actorID INT PRIMARY KEY AUTO_INCREMENT,
-    role VARCHAR(255),
-    movieID INT,
-    FOREIGN KEY (movieID) REFERENCES Movies(movieID)
+CREATE TABLE Producer (
+    producerID INTEGER PRIMARY KEY AUTOINCREMENT,
+    personID INTEGER NOT NULL,
+    position TEXT,
+    FOREIGN KEY (personID) REFERENCES Person(personID)
 );
 
+CREATE TABLE Actor (
+    actorID INTEGER PRIMARY KEY AUTOINCREMENT,
+    personID INTEGER NOT NULL,
+    role TEXT,
+    FOREIGN KEY (personID) REFERENCES Person(personID)
+);
+
+CREATE TABLE Actress (
+    actressID INTEGER PRIMARY KEY AUTOINCREMENT,
+    personID INTEGER NOT NULL,
+    role TEXT,
+    FOREIGN KEY (personID) REFERENCES Person(personID)
+);
+
+CREATE TABLE Writer (
+    writerID INTEGER PRIMARY KEY AUTOINCREMENT,
+    personID INTEGER NOT NULL,
+    contribution TEXT,
+    FOREIGN KEY (personID) REFERENCES Person(personID)
+);
+
+CREATE TABLE Director (
+    directorID INTEGER PRIMARY KEY AUTOINCREMENT,
+    personID INTEGER NOT NULL,
+    position TEXT,
+    FOREIGN KEY (personID) REFERENCES Person(personID)
+);
+
+CREATE TABLE MovieProducer (
+    movieID INTEGER NOT NULL,
+    producerID INTEGER NOT NULL,
+    PRIMARY KEY (movieID, producerID),
+    FOREIGN KEY (movieID) REFERENCES Movie(movieID),
+    FOREIGN KEY (producerID) REFERENCES Producer(producerID)
+);
+
+CREATE TABLE MovieActor (
+    movieID INTEGER NOT NULL,
+    actorID INTEGER NOT NULL,
+    PRIMARY KEY (movieID, actorID),
+    FOREIGN KEY (movieID) REFERENCES Movie(movieID),
+    FOREIGN KEY (actorID) REFERENCES Actor(actorID)
+);
+
+CREATE TABLE MovieActress (
+    movieID INTEGER NOT NULL,
+    actressID INTEGER NOT NULL,
+    PRIMARY KEY (movieID, actressID),
+    FOREIGN KEY (movieID) REFERENCES Movie(movieID),
+    FOREIGN KEY (actressID) REFERENCES Actress(actressID)
+);
+
+CREATE TABLE MovieWriter (
+    movieID INTEGER NOT NULL,
+    writerID INTEGER NOT NULL,
+    PRIMARY KEY (movieID, writerID),
+    FOREIGN KEY (movieID) REFERENCES Movie(movieID),
+    FOREIGN KEY (writerID) REFERENCES Writer(writerID)
+);
+
+CREATE TABLE MovieDirector (
+    movieID INTEGER NOT NULL,
+    directorID INTEGER NOT NULL,
+    PRIMARY KEY (movieID, directorID),
+    FOREIGN KEY (movieID) REFERENCES Movie(movieID),
+    FOREIGN KEY (directorID) REFERENCES Director(directorID)
+);
