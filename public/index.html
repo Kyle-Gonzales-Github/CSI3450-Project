@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Actors Database</title>
+    <title>Movie Database Management</title>
 </head>
+<body>
 <header>
     <h1>Movie Database Management</h1>
 </header>
 
 <div class="form-container">
+    <!-- Add Actor Form -->
     <section>
         <h2>Add an Actor</h2>
-        <form>
+        <form action="/addActor" method="POST">
             <label for="actorFirstName">First Name:</label>
             <input type="text" id="actorFirstName" name="firstName" required><br>
 
@@ -27,9 +29,10 @@
         </form>
     </section>
 
+    <!-- Add Movie Form -->
     <section>
         <h2>Add a New Movie</h2>
-        <form>
+        <form action="/addMovie" method="POST">
             <label for="movieTitle">Movie Title:</label>
             <input type="text" id="movieTitle" name="title" required><br>
 
@@ -52,9 +55,10 @@
         </form>
     </section>
 
+    <!-- Move Movie to Coming Soon -->
     <section>
         <h2>Move Movie to Coming Soon</h2>
-        <form>
+        <form action="/moveMovie" method="POST">
             <label for="movieID">Movie ID:</label>
             <input type="number" id="movieID" name="movieID" required><br>
 
@@ -68,9 +72,10 @@
         </form>
     </section>
 
+    <!-- Schedule Movie in Two Theatres -->
     <section>
         <h2>Schedule Movie in Two Theatres</h2>
-        <form>
+        <form action="/scheduleMovie" method="POST">
             <label for="movieID">Movie ID:</label>
             <input type="number" id="movieID" name="movieID" required><br>
 
@@ -83,5 +88,79 @@
             <button type="submit">Schedule Movie</button>
         </form>
     </section>
+    
+<div class="form-container">
+    <section>
+        <h2>Find Movies by Producer</h2>
+        <form action="/moviesByProducer" method="GET">
+            <label for="producerID">Producer ID:</label>
+            <input type="number" id="producerID" name="producerID" required><br>
+            <button type="submit">Find Movies</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Find Movies by Director</h2>
+        <form action="/moviesByDirector" method="GET">
+            <label for="directorID">Director ID:</label>
+            <input type="number" id="directorID" name="directorID" required><br>
+            <button type="submit">Find Movies</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Find Most Expensive Movie by Producer</h2>
+        <form action="/mostExpensiveMovie" method="GET">
+            <label for="producerID">Producer ID:</label>
+            <input type="number" id="producerID" name="producerID" required><br>
+            <button type="submit">Find Movie</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Find Movies by Year</h2>
+        <form action="/moviesByYear" method="GET">
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" required><br>
+            <button type="submit">Find Movies</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Find Actress Not in a Producer's Movie</h2>
+        <form action="/actressNotInProducerMovies" method="GET">
+            <label for="producerID">Producer ID:</label>
+            <input type="number" id="producerID" name="producerID" required><br>
+            <button type="submit">Find Actress</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Find Highest Amount Earned by Actress</h2>
+        <form action="/highestEarningActress" method="GET">
+            <button type="submit">Find Amount</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Find Actors and Actresses in a Movie</h2>
+        <form action="/actorsAndActressesInMovie" method="GET">
+            <label for="movieID">Movie ID:</label>
+            <input type="number" id="movieID" name="movieID" required><br>
+            <button type="submit">Find Cast</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Find Movies Below a Price Directed by a Director</h2>
+        <form action="/moviesBelowPrice" method="GET">
+            <label for="directorID">Director ID:</label>
+            <input type="number" id="directorID" name="directorID" required><br>
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" required><br>
+            <button type="submit">Find Movies</button>
+        </form>
+    </section>
 </div>
 </body>
+</html>

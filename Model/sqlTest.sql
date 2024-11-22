@@ -1,3 +1,4 @@
+-- Create tables in proper order
 CREATE TABLE Person (
     personID INTEGER PRIMARY KEY AUTOINCREMENT,
     lastName TEXT NOT NULL,
@@ -89,3 +90,15 @@ CREATE TABLE MovieDirector (
     FOREIGN KEY (movieID) REFERENCES Movie(movieID),
     FOREIGN KEY (directorID) REFERENCES Director(directorID)
 );
+
+-- Insert sample data
+INSERT INTO Person (lastName, firstName, pay) VALUES ('Smith', 'John', 50000);
+INSERT INTO Person (lastName, firstName, pay) VALUES ('Doe', 'Jane', 60000);
+
+INSERT INTO Actor (personID, role) VALUES (1, 'Lead Actor');
+INSERT INTO Actress (personID, role) VALUES (2, 'Supporting Actress');
+
+INSERT INTO Movie (title, releaseDate, synopsis, rating, length, category) 
+VALUES ('Inception', '2010-07-16', 'A mind-bending thriller.', 8.8, 148, 'Released');
+INSERT INTO Movie (title, releaseDate, synopsis, rating, length, category) 
+VALUES ('Avatar', '2009-12-18', 'A sci-fi epic.', 7.9, 162, 'Coming Soon');
