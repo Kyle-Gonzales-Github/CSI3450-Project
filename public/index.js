@@ -1,10 +1,9 @@
-// Function to fetch and display all actors
 async function loadActors() {
     try {
         const response = await fetch('/data');
         const result = await response.json();
         const actorsTable = document.getElementById('actorsTable').getElementsByTagName('tbody')[0];
-        actorsTable.innerHTML = ''; // Clear existing rows
+        actorsTable.innerHTML = ''; 
 
         result.data.forEach(actor => {
             const row = actorsTable.insertRow();
@@ -17,7 +16,6 @@ async function loadActors() {
     }
 }
 
-// Handle form submission to add a new actor
 document.getElementById('actorForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
@@ -37,16 +35,14 @@ document.getElementById('actorForm').addEventListener('submit', async function(e
         const result = await response.json();
         document.getElementById('message').innerText = result.message;
 
-        // Reload actors list after adding a new one
+
         loadActors();
     } catch (error) {
         document.getElementById('message').innerText = 'Error adding actor.';
         console.error('Error:', error);
     }
 
-    // Clear form fields
     document.getElementById('actorForm').reset();
 });
 
-// Load actors when the page is loaded
 window.onload = loadActors;

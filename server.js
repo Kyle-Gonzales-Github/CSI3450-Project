@@ -1,14 +1,12 @@
 const express = require('express');
 const app = express();
-const db = require('./Model/db'); // Database connection
+const db = require('./Model/db'); 
 const PORT = 3000;
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Route to add an actor
 app.post('/addActor', (req, res) => {
     const { firstName, lastName, role } = req.body;
     const sql = 'INSERT INTO Person (firstName, lastName, pay) VALUES (?, ?, ?)';
@@ -19,7 +17,7 @@ app.post('/addActor', (req, res) => {
             return;
         }
 
-        const personID = this.lastID; // Get inserted person ID
+        const personID = this.lastID; 
         const actorSql = 'INSERT INTO Actor (personID, role) VALUES (?, ?)';
         db.run(actorSql, [personID, role], function (err) {
             if (err) {
@@ -32,7 +30,6 @@ app.post('/addActor', (req, res) => {
     });
 });
 
-// Route to add a movie
 app.post('/addMovie', (req, res) => {
     const { title, releaseDate, synopsis, rating, length, category } = req.body;
     const sql = 'INSERT INTO Movie (title, releaseDate, synopsis, rating, length, category) VALUES (?, ?, ?, ?, ?, ?)';
@@ -46,7 +43,6 @@ app.post('/addMovie', (req, res) => {
     });
 });
 
-// Route to move a movie to "Coming Soon"
 app.post('/moveMovie', (req, res) => {
     const { movieID, status } = req.body;
     const sql = 'UPDATE Movie SET category = ? WHERE movieID = ?';
@@ -60,7 +56,6 @@ app.post('/moveMovie', (req, res) => {
     });
 });
 
-// Route to schedule a movie in two theatres
 app.post('/scheduleMovie', (req, res) => {
     const { movieID, theatre1, theatre2 } = req.body;
     const sql = 'INSERT INTO MovieTheatre (movieID, theatreID) VALUES (?, ?), (?, ?)';
@@ -74,7 +69,6 @@ app.post('/scheduleMovie', (req, res) => {
     });
 });
 
-// Route to list movies by a producer
 app.get('/moviesByProducer', (req, res) => {
     const { producerID } = req.query;
     const sql = `
@@ -93,7 +87,6 @@ app.get('/moviesByProducer', (req, res) => {
     });
 });
 
-// Route to list movies by a director
 app.get('/moviesByDirector', (req, res) => {
     const { directorID } = req.query;
     const sql = `
@@ -112,7 +105,6 @@ app.get('/moviesByDirector', (req, res) => {
     });
 });
 
-// Route to find the most expensive movie produced by a producer
 app.get('/mostExpensiveMovie', (req, res) => {
     const { producerID } = req.query;
     const sql = `
@@ -133,7 +125,6 @@ app.get('/mostExpensiveMovie', (req, res) => {
     });
 });
 
-// Route to find movies produced in the same year
 app.get('/moviesByYear', (req, res) => {
     const { year } = req.query;
     const sql = `
@@ -151,12 +142,10 @@ app.get('/moviesByYear', (req, res) => {
     });
 });
 
-// Test route
 app.get('/', (req, res) => {
     res.send('Server is working!');
 });
 
-// Start server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
