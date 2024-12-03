@@ -9,8 +9,8 @@ app.use(express.static('public'));
 
 app.post('/addActor', (req, res) => {
     const { firstName, lastName, role } = req.body;
-    const sql = 'INSERT INTO Person (firstName, lastName, pay) VALUES (?, ?, ?)';
-    db.run(sql, [firstName, lastName, 0], function (err) {
+    const sql = 'INSERT INTO Person (firstName, lastName, pay, role) VALUES (?, ?, ?, ?)';
+    db.run(sql, [firstName, lastName, 0, role], function (err) {
         if (err) {
             res.status(500).json({ message: 'Error adding actor to Person table.' });
             console.error(err.message);
@@ -18,8 +18,8 @@ app.post('/addActor', (req, res) => {
         }
 
         const personID = this.lastID; 
-        const actorSql = 'INSERT INTO Actor (personID, role) VALUES (?, ?)';
-        db.run(actorSql, [personID, role], function (err) {
+        const actorSql = 'INSERT INTO Actor (firstName, lastName, personID, role ) VALUES (?, ?,?,?)';
+        db.run(actorSql, [firstName, lastName, personID, role], function (err) {
             if (err) {
                 res.status(500).json({ message: 'Error adding actor to Actor table.' });
                 console.error(err.message);
